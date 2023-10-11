@@ -4,6 +4,7 @@
 *.o
 *.annot
 src/ott
+src/ott.byt
 grammar_lexer.ml
 grammar_lexer.o
 grammar_parser.ml
@@ -18,3 +19,4 @@ ocamlgraph-1.7
 .merlin
 make_merlin.sh
 ott.install
+/minimalScript.sml
