@@ -50,6 +50,13 @@ let loc_of_filename name len  =
       Lexing.pos_cnum =len }
 } ]
 
+let loc_to_yojson l =
+  let jsonStart = "\"START\"" in
+  let jsonEnd   = "\"END\"" in
+  Yojson.Safe.from_string ("["^jsonStart^","^jsonEnd^"]")
+
+
+
 (* We don't use these anymore,
 since all errors/warnings should be converting
 their positiosn into locations *)
