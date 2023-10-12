@@ -59,9 +59,7 @@ type parsing_annotation_type =
   | LTEQ
   | Left
   | Right
-  | Non
-
-let parsing_annotation_type_to_yojson x = `String "!"
+  | Non [@@deriving to_yojson]
 
 type terminal = string  (* tm *)
 
