@@ -31,9 +31,24 @@
 (*  IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                         *)
 (**************************************************************************)
 
+type fckpos = {
+  fckpos_fname : string;
+  fckpos_lnum : int;
+  fckpos_bol : int;
+  fckpos_cnum : int;
+} [@@deriving to_yojson]
+
+let fck { Lexing.pos_fname = fname ; Lexing.pos_lnum = lnum ; Lexing.pos_bol = bol ; Lexing.pos_cnum = cnum ;  } =
+  {
+  fckpos_fname = fname;
+  fckpos_lnum  = lnum;
+  fckpos_bol   = bol;
+  fckpos_cnum  = cnum
+  }
+
 type t = 
-    { loc_start : Lexing.position;
-      loc_end : Lexing.position }
+    { loc_start : Lexing.position [@to_yojson fun s -> fckpos_to_yojson (fck s) ]  ;
+      loc_end   : Lexing.position [@to_yojson fun e -> fckpos_to_yojson (fck e) ]  } [@@deriving to_yojson]
 
 let loc_of_filename name len  = 
   [ {loc_start =  
@@ -50,12 +65,12 @@ let loc_of_filename name len  =
       Lexing.pos_cnum =len }
 } ]
 
+  (*
 let loc_to_yojson l =
   let jsonStart = "\"START\"" in
   let jsonEnd   = "\"END\"" in
   Yojson.Safe.from_string ("["^jsonStart^","^jsonEnd^"]")
-
-
+*)
 
 (* We don't use these anymore,
 since all errors/warnings should be converting

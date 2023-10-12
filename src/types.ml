@@ -45,7 +45,7 @@ open Location;;
 (** internal rep of systems  *)
 (** ************************ *)
 
-type loc = Location.t list (* l *)
+type loc = Location.t list [@@deriving to_yojson] (* l *)
 let dummy_loc = []
 
 module StringSet = Set.Make(String)
