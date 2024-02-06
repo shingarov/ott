@@ -32,18 +32,18 @@
 (**************************************************************************)
 
 type fckpos = {
-  fckpos_fname : string;
-  fckpos_lnum : int;
-  fckpos_bol : int;
-  fckpos_cnum : int;
+  fname : string;
+  lnum : int;
+  bol : int;
+  cnum : int;
 } [@@deriving to_yojson]
 
 let fck { Lexing.pos_fname = fname ; Lexing.pos_lnum = lnum ; Lexing.pos_bol = bol ; Lexing.pos_cnum = cnum ;  } =
   {
-  fckpos_fname = fname;
-  fckpos_lnum  = lnum;
-  fckpos_bol   = bol;
-  fckpos_cnum  = cnum
+  fname = fname;
+  lnum  = lnum;
+  bol   = bol;
+  cnum  = cnum
   }
 
 type t = 
