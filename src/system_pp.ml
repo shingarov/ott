@@ -31,6 +31,7 @@
 (*  IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                         *)
 (**************************************************************************)
 
+open Yojson.Basic.Util;;
 open Types;;
 
 
@@ -411,7 +412,7 @@ let pp_systemdefn fd m sd lookup fn =
 
 (* multi-file stuff *)
 
-let pp_systemdefn_core_io m sd lookup oi merge_fragments =
+let pp_systemdefn_core_io1 m sd lookup oi merge_fragments =
   (* if -merge true, ignore the new algorithm *)
   if merge_fragments
   then begin
@@ -534,6 +535,31 @@ let pp_systemdefn_core_io m sd lookup oi merge_fragments =
               close_out fd)
             oi
     end
+
+let pp_systemdefn_json m sd lookup oi merge_fragments =
+  match oi with
+  | (o,(i::[]))::[] ->
+      let fn = Auxl.filename_check m o in 
+      let fd = open_out o in
+      let json = systemdefn_to_yojson sd in
+      output_string fd (Yojson.Safe.to_string json);
+      close_out fd
+  | _ ->
+      List.iter 
+        (fun (o,is) ->
+          let fn = Auxl.filename_check m o in
+          let fd = open_out o in
+          output_string fd "SORRY MULTIPLE -i NOT IMPLEMENTED YET\n\n";
+          close_out fd)
+        oi
+
+
+let pp_systemdefn_core_io m sd lookup oi merge_fragments =
+  match m with
+  | Hol _ ->
+    pp_systemdefn_json m sd lookup oi merge_fragments
+  | _ ->
+    pp_systemdefn_core_io1 m sd lookup oi merge_fragments
 
 let is_wrap_pre (l,hn,es) = if hn = "tex-wrap-pre" then Some (l,"tex",es) else None
 let is_wrap_post (l,hn,es) = if hn = "tex-wrap-post" then Some (l,"tex",es) else None
