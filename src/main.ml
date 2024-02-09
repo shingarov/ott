@@ -326,7 +326,7 @@ let types_of_extensions =
       "tex","tex"; 
       "v",  "coq"; 
       "thy","isa"; 
-      "sml","hol"; 
+      "JSON","hol"; 
       "lem","lem"; 
       "twf","twf"; 
       "ml", "ocaml";
