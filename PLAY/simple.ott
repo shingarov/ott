@@ -1,0 +1,12 @@
+
+metavar var, x ::=   {{ com  term variable }} 
+{{ isa string}} {{ coq nat}} {{ hol string}} {{ lem string }} {{ coq-equality }}
+{{ ocaml string}} {{ lex alphanum}} {{ tex \mathit{[[var]]} }} {{ ocamllex ['a'-'z''A'-'Z']+ }}
+
+
+grammar
+
+exp :: 'E_' ::=           {{ menhir-start }}
+  | 1                                  ::   :: one 
+  | 2                                  ::   :: two  
+
