@@ -7,11 +7,11 @@ let process (line : string) =
   let linebuf = Lexing.from_string line in
   try
     (* Run the parser on this line of input. *)
-    let t = (Parser.exp_start Lexer.token linebuf) in
+    let t = (Parser.nat_start Lexer.token linebuf) in
     (* and pp the original and the parsed result *)
     Printf.printf "ok:%s\n" line;
-    Printf.printf "   "; PPrint.ToChannel.compact stdout (PP.pp_raw_exp t); Printf.printf "\n";
-    Printf.printf "   "; PPrint.ToChannel.compact stdout (PP.pp_exp t); Printf.printf "\n"
+    Printf.printf "   "; PPrint.ToChannel.compact stdout (PP.pp_raw_nat t); Printf.printf "\n";
+    Printf.printf "   "; PPrint.ToChannel.compact stdout (PP.pp_nat t); Printf.printf "\n"
 
   with
   | Lexer.Error msg ->
