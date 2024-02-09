@@ -1775,8 +1775,8 @@ let isa_filename_check s =
   | Some s1 -> s1
 
 let hol_filename_check s =
-  match string_remove_suffix s "Script.sml" with
-  | None -> failwith ("HOL filenames must end with Script.sml\n")
+  match string_remove_suffix s ".JSON" with
+  | None -> failwith ("JSON (we hijacked HOL) filenames must end with .JSON\n")
   | Some s1 -> s1
 
 let filename_check m s =
