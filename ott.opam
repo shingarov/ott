@@ -12,6 +12,8 @@ depends: [
   "ocamlgraph"
   "pprint" {with-test}
   "menhir" {>= "20151112" & with-test}
+  "ppx_yojson_conv"
+  "yojson"
 ]
 build: [
   [make "world"] { ocaml:native }

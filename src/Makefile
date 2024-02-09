@@ -36,7 +36,7 @@ topdir = ..
 OTTVER=0.33
 
 OCAMLFIND=ocamlfind
-OCAMLARGS=-package str -package ocamlgraph -linkpkg
+OCAMLARGS=-package str -package ocamlgraph -package yojson -package ppx_deriving_yojson  -linkpkg
 
 # for us
 OCAMLC	 	= $(OCAMLFIND) ocamlc $(OCAMLARGS) -g -dtypes  # -w p disables partial match warnings

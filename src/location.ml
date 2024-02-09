@@ -31,9 +31,25 @@
 (*  IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                         *)
 (**************************************************************************)
 
+type fckpos = {
+  fname : string;
+  lnum : int;
+  bol : int;
+  cnum : int;
+} [@@deriving to_yojson]
+
+let fck { Lexing.pos_fname = fname ; Lexing.pos_lnum = lnum ; Lexing.pos_bol = bol ; Lexing.pos_cnum = cnum ;  } =
+  {
+  fname = fname;
+  lnum  = lnum;
+  bol   = bol;
+  cnum  = cnum
+  }
+
 type t = 
-    { loc_start : Lexing.position;
-      loc_end : Lexing.position }
+    { loc_start : Lexing.position [@to_yojson fun s -> fckpos_to_yojson (fck s) ]  ;
+      loc_end   : Lexing.position [@to_yojson fun e -> fckpos_to_yojson (fck e) ]  } [@@deriving to_yojson]
+
 
 let loc_of_filename name len  = 
   [ {loc_start =  

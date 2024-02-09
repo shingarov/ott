@@ -45,7 +45,7 @@ open Location;;
 (** internal rep of systems  *)
 (** ************************ *)
 
-type loc = Location.t list (* l *)
+type loc = Location.t list [@@deriving to_yojson]  (* l *)
 let dummy_loc = []
 
 module StringSet = Set.Make(String)
@@ -53,11 +53,15 @@ module StringSet = Set.Make(String)
 type prod_flavour = Bar  (* pf *) 
   (* for future extensions, eg, associativity annotations *)
 
+let prod_flavour_to_yojson x = `String "!" (* BOGUS *)
+
 type parsing_annotation_type =
   | LTEQ
   | Left
   | Right
-  | Non
+  | Non  [@@deriving to_yojson]
+
+let parsing_annotation_type_to_yojson x = `String "!" (* BOGUS *)
 
 type terminal = string  (* tm *)
 
@@ -212,7 +216,7 @@ and prod = (* p *)
       prod_flavour : prod_flavour;
       prod_meta : bool;
       prod_sugar : bool;   
-      prod_categories : StringSet.t;
+      prod_categories : StringSet.t [@to_yojson (fun x -> `String "!")]; (* BOGUS *)
       prod_es : element list;
       prod_homs : homomorphism list;
       prod_disambiguate : (string * string) option;
@@ -351,7 +355,7 @@ and defn =  (* d *)
 
 and drule =  (* dr *)
     { drule_name : defnrulename;                (* eg Eet_value_name *)
-      drule_categories : StringSet.t;
+      drule_categories : StringSet.t [@to_yojson (fun x -> `String "!")]; (* BOGUS *)
       drule_premises : (string option * symterm) list;
       drule_conclusion : symterm;
       drule_homs : homomorphism list;
@@ -400,7 +404,7 @@ and systemdefn =  (* sd *)
     { syntax : syntaxdefn;
       relations : relationsdefn;
       structure : structure;
-      sources : string}
+      sources : string} [@@deriving to_yojson]
 
 (** ************************ *)
 (** symbolic term processing *)
