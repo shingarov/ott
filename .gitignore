@@ -18,3 +18,9 @@ ocamlgraph-1.7
 .merlin
 make_merlin.sh
 ott.install
+/PLAY/_build/
+/PLAY/*.JSON
+/PLAY/*_ast.ml
+/PLAY/*_lexer.mll
+/PLAY/*_parser.mly
+/PLAY/*_parser_pp.ml
