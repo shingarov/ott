@@ -118,7 +118,7 @@ byt: ott.byt
 ott.byt: Makefile $(CMO) $(CMI_FROM_MLI) version.tex
 	echo $^
 	$(OCAMLC) -v
-	$(OCAMLC) -o ott.byt $(CMO)
+	$(OCAMLC) -g -o ott.byt $(CMO)
 	ln -s -f $@ ott
 
 .FORCE: opt
