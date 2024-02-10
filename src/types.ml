@@ -50,10 +50,12 @@ let dummy_loc = []
 
 module StringSet = Set.Make(String)
       
+type slist = string list [@@deriving yojson]
+let ss2j ss = slist_to_yojson (StringSet.elements ss)
+
 type prod_flavour = Bar  (* pf *) 
   (* for future extensions, eg, associativity annotations *)
-
-let prod_flavour_to_yojson x = `String "!" (* BOGUS *)
+let prod_flavour_to_yojson x = `String "|" (* it's nonsensical void anyway *)
 
 type parsing_annotation_type =
   | LTEQ
@@ -61,7 +63,12 @@ type parsing_annotation_type =
   | Right
   | Non  [@@deriving to_yojson]
 
-let parsing_annotation_type_to_yojson x = `String "!" (* BOGUS *)
+let parsing_annotation_type_to_yojson x = `String (
+  match x with
+  | LTEQ  -> "LTEQ"
+  | Left  -> "Left"
+  | Right -> "Right"
+  | Non   -> "Non")
 
 type terminal = string  (* tm *)
 
@@ -216,7 +223,7 @@ and prod = (* p *)
       prod_flavour : prod_flavour;
       prod_meta : bool;
       prod_sugar : bool;   
-      prod_categories : StringSet.t [@to_yojson (fun x -> `String "!")]; (* BOGUS *)
+      prod_categories : StringSet.t [@to_yojson ss2j];
       prod_es : element list;
       prod_homs : homomorphism list;
       prod_disambiguate : (string * string) option;
@@ -355,7 +362,7 @@ and defn =  (* d *)
 
 and drule =  (* dr *)
     { drule_name : defnrulename;                (* eg Eet_value_name *)
-      drule_categories : StringSet.t [@to_yojson (fun x -> `String "!")]; (* BOGUS *)
+      drule_categories : StringSet.t [@to_yojson ss2j];
       drule_premises : (string option * symterm) list;
       drule_conclusion : symterm;
       drule_homs : homomorphism list;
