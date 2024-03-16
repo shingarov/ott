@@ -579,10 +579,7 @@ let rec pp_subst_symterm
               ^" : set "
               ^ Grammar_pp.pp_mse_string m xd sie de bound_things_glommed
           | Hol _ ->
-              "MEM "
-              ^ that_s 
-              ^" "
-              ^ Grammar_pp.pp_mse_string m xd sie de bound_things_glommed
+              ""
           | Caml _ ->
               "List.mem "
               ^ that_s 

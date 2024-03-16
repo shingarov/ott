@@ -1294,12 +1294,7 @@ and pp_metavardefn m xd mvd =
 	      "type_synonym \"" ^ type_name ^ "\" = \"" 
 	      ^ (pp_metavarrep m xd mvd.mvd_rep type_name mvd.mvd_loc)^ "\"" ^ pp_com ^ "\n"
 	| Hol ho -> 
-	    let type_name = pp_metavarroot_ty m xd mvd.mvd_name in 
-	    "val _ = type_abbrev(\""
-	    ^ type_name
-	    ^ "\", ``:"
-	    ^ (pp_metavarrep m xd mvd.mvd_rep type_name mvd.mvd_loc) ^ "``);" 
-	    ^ pp_com ^ "\n"
+	    ""
 	| Lem lo -> 
 	    let type_name = pp_metavarroot_ty m xd mvd.mvd_name in 
 	    "type "
@@ -2800,7 +2795,7 @@ and pp_rule_list m xd rs =
           if Auxl.rules_require_nominal m xd rs then "nominal_datatype " else "datatype ")
         "and " ""
   | Hol ho ->
-      int_rule_list_dep m xd rs (fun rs -> "val _ = Hol_datatype ` \n") ";\n" "`;"
+      int_rule_list_dep m xd rs (fun rs -> "") "" ""
   | Coq co ->
       let def = int_rule_list_dep m xd rs (fun rs -> "\nInductive ") "\nwith " "." in
       let coq_equality_code = !pp_internal_coq_buffer in

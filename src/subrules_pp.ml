@@ -297,9 +297,7 @@ let pp_subrules m xd srs : int_funcs_collapsed =
 	      ^ de1i.de1_compound_id
 	      ^ ")"], deps, []
         | Hol _ ->
-            [ "(EVERY (\\"^de1i.de1_pattern^". "^conjuncted_conjuncts^") "
-	      ^ de1i.de1_compound_id
-	      ^ ")"], deps, []
+            [],[],[]
         | Caml _ ->
             [ "(List.for_all (fun "^de1i.de1_pattern^" -> "^conjuncted_conjuncts^") "
 	      ^ de1i.de1_compound_id
@@ -434,7 +432,9 @@ let pp_subrules m xd srs : int_funcs_collapsed =
                  pls in
 
              match m with 
-             | Coq _ | Hol _ | Lem _ | Isa _ | Caml _ -> 
+             | Hol _ -> 
+                 []
+             | Coq _ | Lem _ | Isa _ | Caml _ -> 
                  let rhs = 
                    if rhss = [] 
                    then Auxl.pp_false m false
