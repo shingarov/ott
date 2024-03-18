@@ -10,7 +10,8 @@ grammar_parser.ml
 grammar_parser.mli
 grammar_parser.output
 version.tex
-*byte
+*.byte
+*.byt
 *opt
 bin/
 src/version.ml
