@@ -13,6 +13,7 @@ version.tex
 *byte
 *opt
 bin/
+src/version.ml
 .depend
 ocamlgraph-1.7
 .merlin
